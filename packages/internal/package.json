@@ -16,7 +16,8 @@
   ],
   "scripts": {
     "build": "vite build",
-    "clean": "rm -rf dist tsconfig.tsbuildinfo"
+    "clean": "rm -rf dist tsconfig.tsbuildinfo",
+    "prepack": "jq --slurpfile source ../../package.json '.version = $source[0].version | .publishConfig.registry = $source[0].publishConfig.registry | .publishConfig.tag = $source[0].publishConfig.tag' package.json > package.json.tmp && mv package.json.tmp package.json"
   },
   "dependencies": {
     "@hiveio/content-renderer": "^2.3.1",
@@ -27,6 +28,8 @@
     "vite": "^5.0.0"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": null,
+    "tag": null
   }
 }
