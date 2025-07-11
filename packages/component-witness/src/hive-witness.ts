@@ -1,8 +1,8 @@
 import { LitElement, html, css } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { hiveApi, baseStyles, themeStyles, formatHiveCurrency, isValidHiveAccount } from "@hiveio/internal";
-import { withHiveTheme } from "@hiveio/internal";
-import type { HiveWitness } from "@hiveio/internal";
+import { hiveApi, baseStyles, themeStyles, formatHiveCurrency, isValidHiveAccount } from "@hiveio/component-internal";
+import { withHiveTheme } from "@hiveio/component-internal";
+import type { HiveWitness } from "@hiveio/component-internal";
 
 @customElement("hive-witness")
 export class HiveWitnessElement extends withHiveTheme(LitElement) {

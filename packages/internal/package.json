@@ -1,5 +1,5 @@
 {
-  "name": "@hiveio/internal",
+  "name": "@hiveio/component-internal",
   "version": "1.0.0",
   "description": "Internal utilities for Hive components",
   "type": "module",

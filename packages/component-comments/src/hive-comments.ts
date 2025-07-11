@@ -1,8 +1,8 @@
 import { LitElement, html, css } from "lit";
 import { property, state } from "lit/decorators.js";
-import { hiveApi, baseStyles, themeStyles, parseHiveUrl } from "@hiveio/internal";
-import { withHiveTheme } from "@hiveio/internal";
-import type { HiveComment } from "@hiveio/internal";
+import { hiveApi, baseStyles, themeStyles, parseHiveUrl } from "@hiveio/component-internal";
+import { withHiveTheme } from "@hiveio/component-internal";
+import type { HiveComment } from "@hiveio/component-internal";
 import "@hiveio/component-post";
 
 export class HiveCommentsElement extends withHiveTheme(LitElement) {

@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "lit": "^3.0.0",
-    "@hiveio/internal": "workspace:*"
+    "@hiveio/component-internal": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.0.0",

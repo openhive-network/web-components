@@ -8,7 +8,7 @@ export const createCommonViteConfigForEntry = (entry: string, ...otherExternals:
         insertTypesEntry: true,
         rollupTypes: true,
         outDir: "dist",
-        // bundledPackages: ["@hiveio/internal"],
+        // bundledPackages: ["@hiveio/component-internal"],
       }),
     ],
     build: {
@@ -23,7 +23,7 @@ export const createCommonViteConfigForEntry = (entry: string, ...otherExternals:
       sourcemap: true,
       emptyOutDir: true,
       rollupOptions: {
-        external: ["lit", "@hiveio/internal", ...otherExternals],
+        external: ["lit", "@hiveio/component-internal", ...otherExternals],
       },
     },
   }) as UserConfig;

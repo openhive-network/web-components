@@ -12,7 +12,7 @@ A collection of reusable Web Components for the Hive blockchain, built with Type
   {
     "imports": {
       "lit": "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js",
-      "@hiveio/internal": "https://gtg.openhive.network/5bb236/hive-internal.js"
+      "@hiveio/component-internal": "https://gtg.openhive.network/5bb236/hive-internal.js"
     }
   }
 </script>

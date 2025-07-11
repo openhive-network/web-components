@@ -51,7 +51,7 @@
     "@hiveio/component-post": "workspace:*",
     "@hiveio/component-tag": "workspace:*",
     "@hiveio/component-witness": "workspace:*",
-    "@hiveio/internal": "workspace:*"
+    "@hiveio/component-internal": "workspace:*"
   },
   "keywords": [
     "hive",

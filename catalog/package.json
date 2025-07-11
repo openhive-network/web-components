@@ -16,7 +16,7 @@
     "@hiveio/component-post": "workspace:*",
     "@hiveio/component-comments": "workspace:*",
     "@hiveio/component-tag": "workspace:*",
-    "@hiveio/internal": "workspace:*"
+    "@hiveio/component-internal": "workspace:*"
   },
   "devDependencies": {
     "vite": "^5.0.0",

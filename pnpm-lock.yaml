@@ -23,7 +23,7 @@ importers:
       '@hiveio/component-witness':
         specifier: workspace:*
         version: link:packages/component-witness
-      '@hiveio/internal':
+      '@hiveio/component-internal':
         specifier: workspace:*
         version: link:packages/internal
     devDependencies:
@@ -93,7 +93,7 @@ importers:
       '@hiveio/component-witness':
         specifier: workspace:*
         version: link:../packages/component-witness
-      '@hiveio/internal':
+      '@hiveio/component-internal':
         specifier: workspace:*
         version: link:../packages/internal
       lit:
@@ -109,7 +109,7 @@ importers:
 
   packages/component-account:
     dependencies:
-      '@hiveio/internal':
+      '@hiveio/component-internal':
         specifier: workspace:*
         version: link:../internal
       lit:
@@ -128,7 +128,7 @@ importers:
       '@hiveio/component-post':
         specifier: workspace:*
         version: link:../component-post
-      '@hiveio/internal':
+      '@hiveio/component-internal':
         specifier: workspace:*
         version: link:../internal
       lit:
@@ -144,7 +144,7 @@ importers:
 
   packages/component-post:
     dependencies:
-      '@hiveio/internal':
+      '@hiveio/component-internal':
         specifier: workspace:*
         version: link:../internal
       lit:
@@ -163,7 +163,7 @@ importers:
       '@hiveio/component-post':
         specifier: workspace:*
         version: link:../component-post
-      '@hiveio/internal':
+      '@hiveio/component-internal':
         specifier: workspace:*
         version: link:../internal
       lit:
@@ -179,7 +179,7 @@ importers:
 
   packages/component-witness:
     dependencies:
-      '@hiveio/internal':
+      '@hiveio/component-internal':
         specifier: workspace:*
         version: link:../internal
       lit:

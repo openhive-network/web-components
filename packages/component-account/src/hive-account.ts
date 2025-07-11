@@ -8,9 +8,9 @@ import {
   formatHiveCurrency,
   calculateReputation,
   isValidHiveAccount,
-} from "@hiveio/internal";
-import { withHiveTheme } from "@hiveio/internal";
-import type { HiveAccount } from "@hiveio/internal";
+} from "@hiveio/component-internal";
+import { withHiveTheme } from "@hiveio/component-internal";
+import type { HiveAccount } from "@hiveio/component-internal";
 
 @customElement("hive-account")
 export class HiveAccountElement extends withHiveTheme(LitElement) {
