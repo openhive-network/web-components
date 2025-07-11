@@ -57,6 +57,8 @@ deploy_dev_package:
   needs:
     - job: build
       artifacts: true
+  before_script: # Override to skip processing nonexistent tarball file
+    - !reference [.npm_based_job_base, before_script]
 
 deploy_production_public_npm:
   stage: deploy
@@ -69,3 +71,5 @@ deploy_production_public_npm:
     - job: deploy_dev_package
     - job: build
       artifacts: true
+  before_script: # Override to skip processing nonexistent tarball file
+    - !reference [.npm_based_job_base, before_script]
