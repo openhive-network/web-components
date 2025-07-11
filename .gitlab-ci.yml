@@ -1,5 +1,5 @@
 stages:
-  - .pre  
+  - .pre
   - build
   - test
   - deploy
@@ -10,10 +10,10 @@ variables:
   GIT_SUBMODULE_STRATEGY: recursive
 
 include:
-  - project: 'hive/common-ci-configuration'
+  - project: "hive/common-ci-configuration"
     ref: ab4d4c78df8ebc5b5d7744fe2cfa64c51143fe01
     file:
-      - '/templates/npm_projects.gitlab-ci.yml'
+      - "/templates/npm_projects.gitlab-ci.yml"
 
 default:
   tags:
@@ -23,7 +23,8 @@ lint:
   stage: .pre
   extends: .npm_based_job_base
   script:
-    - npm run lint-ci
+    - pnpm lint:ci
+    - pnpm format:ci
 
 build:
   stage: build

@@ -1,6 +1,13 @@
 import { LitElement, html, css } from "lit";
 import { property, state } from "lit/decorators.js";
-import { baseStyles, themeStyles, formatHiveDate, calculateReputation, hiveApi, parseHiveUrl } from "@hiveio/component-internal";
+import {
+  baseStyles,
+  themeStyles,
+  formatHiveDate,
+  calculateReputation,
+  hiveApi,
+  parseHiveUrl,
+} from "@hiveio/component-internal";
 import { withHiveTheme } from "@hiveio/component-internal";
 import type { HivePost, HiveComment } from "@hiveio/component-internal";
 
