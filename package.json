@@ -14,7 +14,7 @@
     "catalog",
     "testing"
   ],
-  "packageManager": "pnpm@9.0.0",
+  "packageManager": "pnpm@10.13.1",
   "scripts": {
     "prebuild": "ls-engines && husky",
     "build": "pnpm -r run build",
@@ -48,10 +48,10 @@
   "dependencies": {
     "@hiveio/component-account": "workspace:*",
     "@hiveio/component-comments": "workspace:*",
+    "@hiveio/component-internal": "workspace:*",
     "@hiveio/component-post": "workspace:*",
     "@hiveio/component-tag": "workspace:*",
-    "@hiveio/component-witness": "workspace:*",
-    "@hiveio/component-internal": "workspace:*"
+    "@hiveio/component-witness": "workspace:*"
   },
   "keywords": [
     "hive",

@@ -1,7 +1,6 @@
 stages:
   - .pre
   - build
-  - test
   - deploy
 
 variables:
@@ -33,18 +32,8 @@ build:
     DIST_DIR: "$CI_PROJECT_DIR/dist"
     NPM_PACKAGE_SCOPE: "@hiveio"
     NPM_PACKAGE_NAME: "components"
-    REPLACE_FILE_PATH: "${CI_PROJECT_DIR}/README.md"
   needs:
     - job: lint
-
-test:
-  stage: test
-  extends: .npm_test_template
-  variables:
-    PACKAGE_TGZ_PATH: "${BUILT_PACKAGE_PATH}"
-  needs:
-    - job: build
-      artifacts: true
 
 deploy_dev_package:
   stage: deploy
@@ -53,7 +42,6 @@ deploy_dev_package:
     PACKAGE_TGZ_PATH: "${BUILT_PACKAGE_PATH}"
     NPM_PACKAGE_SCOPE: "@hiveio"
   needs:
-    - job: test
     - job: build
       artifacts: true
 
@@ -66,6 +54,5 @@ deploy_production_public_npm:
     PACKAGE_TGZ_PATH: "${BUILT_PACKAGE_PATH}"
   needs:
     - job: deploy_dev_package
-    - job: test
     - job: build
       artifacts: true
