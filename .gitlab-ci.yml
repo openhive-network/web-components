@@ -34,6 +34,10 @@ build:
     NPM_PACKAGE_NAME: "components"
   needs:
     - job: lint
+  before_script:
+    - pnpm prebuild
+  after_script:
+    - pnpm postbuild
 
 deploy_dev_package:
   stage: deploy
