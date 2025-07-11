@@ -34,9 +34,10 @@ build:
     NPM_PACKAGE_NAME: "components"
   needs:
     - job: lint
-  before_script:
+  script:
     - pnpm prebuild
     - pnpm postbuild # Cheat to create the dist directory. Running pnpm build should be fixed in the common-ci-configuration.
+    - !reference [.npm_build_template, script]
 
 deploy_dev_package:
   stage: deploy
