@@ -1,0 +1,70 @@
+stages:
+  - .pre  
+  - build
+  - test
+  - deploy
+
+variables:
+  GIT_DEPTH: 1
+  GIT_STRATEGY: clone
+  GIT_SUBMODULE_STRATEGY: recursive
+
+include:
+  - project: 'hive/common-ci-configuration'
+    ref: ab4d4c78df8ebc5b5d7744fe2cfa64c51143fe01
+    file:
+      - '/templates/npm_projects.gitlab-ci.yml'
+
+default:
+  tags:
+    - public-runner-docker
+
+lint:
+  stage: .pre
+  extends: .npm_based_job_base
+  script:
+    - npm run lint-ci
+
+build:
+  stage: build
+  extends: .npm_build_template
+  variables:
+    DIST_DIR: "$CI_PROJECT_DIR/dist"
+    NPM_PACKAGE_SCOPE: "@hiveio"
+    NPM_PACKAGE_NAME: "components"
+    REPLACE_FILE_PATH: "${CI_PROJECT_DIR}/README.md"
+  needs:
+    - job: lint
+
+test:
+  stage: test
+  extends: .npm_test_template
+  variables:
+    PACKAGE_TGZ_PATH: "${BUILT_PACKAGE_PATH}"
+  needs:
+    - job: build
+      artifacts: true
+
+deploy_dev_package:
+  stage: deploy
+  extends: .npm_deploy_package_template
+  variables:
+    PACKAGE_TGZ_PATH: "${BUILT_PACKAGE_PATH}"
+    NPM_PACKAGE_SCOPE: "@hiveio"
+  needs:
+    - job: test
+    - job: build
+      artifacts: true
+
+deploy_production_public_npm:
+  stage: deploy
+  extends: .registry_npmjs_org_deploy_package_template
+  variables:
+    NPM_PUBLISH_TOKEN: "$INTERNAL_HIDDEN_PUBLISH_TOKEN"
+    NPM_PACKAGE_NAME: "components"
+    PACKAGE_TGZ_PATH: "${BUILT_PACKAGE_PATH}"
+  needs:
+    - job: deploy_dev_package
+    - job: test
+    - job: build
+      artifacts: true
