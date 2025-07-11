@@ -36,8 +36,7 @@ build:
     - job: lint
   before_script:
     - pnpm prebuild
-  after_script:
-    - pnpm postbuild
+    - pnpm postbuild # Cheat to create the dist directory. Running pnpm build should be fixed in the common-ci-configuration.
 
 deploy_dev_package:
   stage: deploy
