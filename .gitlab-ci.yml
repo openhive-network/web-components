@@ -43,6 +43,7 @@ build:
         - "built_package_version_info.env" # contains information related to generated package version and git revision
     paths:
       - "dist"
+      - "package.json"
       - "packages/*/dist"
     when: always
     expire_in: 1 week
