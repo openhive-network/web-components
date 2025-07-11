@@ -35,7 +35,7 @@ build:
   needs:
     - job: lint
   script:
-    - /home/emscripten/scripts/npm_generate_version.sh "${CI_PROJECT_DIR}" "${NPM_REGISTRY_URL}" "${NPM_PACKAGE_SCOPE}" "${NPM_PACKAGE_NAME}" "${COMMIT_REF_PROTECTED}" "${COMMIT_TAG}"
+    - /home/emscripten/scripts/npm_generate_version.sh "${CI_PROJECT_DIR}" "${NPM_REGISTRY_URL}" "${NPM_PACKAGE_SCOPE}" "${NPM_PACKAGE_NAME}" "${CI_COMMIT_REF_PROTECTED}" "${CI_COMMIT_TAG}"
     - pnpm build
   artifacts:
     reports:
@@ -52,7 +52,6 @@ deploy_dev_package:
   stage: deploy
   extends: .npm_deploy_package_template
   variables:
-    PACKAGE_TGZ_PATH: "${BUILT_PACKAGE_PATH}"
     NPM_PACKAGE_SCOPE: "@hiveio"
   needs:
     - job: build
@@ -66,7 +65,6 @@ deploy_production_public_npm:
   variables:
     NPM_PUBLISH_TOKEN: "$INTERNAL_HIDDEN_PUBLISH_TOKEN"
     NPM_PACKAGE_NAME: "components"
-    PACKAGE_TGZ_PATH: "${BUILT_PACKAGE_PATH}"
   needs:
     - job: deploy_dev_package
     - job: build
