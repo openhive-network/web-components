@@ -4,10 +4,16 @@
   "description": "Hive blockchain reusable Web Components library",
   "private": true,
   "type": "module",
-  "main": "dist/bundle.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
   "files": [
-    "dist",
-    "packages/*/dist/bundle.js"
+    "dist"
   ],
   "workspaces": [
     "packages/*",
