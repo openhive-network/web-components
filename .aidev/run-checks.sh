@@ -46,22 +46,21 @@ step() {
     return "$rc"
 }
 
-# The files every workspace package's package.json `exports` / `types` name.
+# The files the root package's and every workspace package's package.json
+# `main` / `types` / `exports` name.
 check_dist() {
     node -e '
 const fs = require("fs");
 const path = require("path");
 const missing = [];
 const found = [];
-for (const dir of fs.readdirSync("packages")) {
-  const root = path.join("packages", dir);
+for (const root of [".", ...fs.readdirSync("packages").map((dir) => path.join("packages", dir))]) {
   const pkg = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8"));
   const want = [pkg.main, pkg.types, ...Object.values(pkg.exports || {}).flatMap((e) => typeof e === "string" ? [e] : Object.values(e))];
-  for (const f of new Set(want.filter(Boolean))) (fs.existsSync(path.join(root, f)) ? found : missing).push(path.join(root, f));
+  for (const f of new Set(want.filter(Boolean).map((f) => path.join(root, f)))) (fs.existsSync(f) ? found : missing).push(f);
 }
-if (!fs.existsSync("dist/index.js")) missing.push("dist/index.js");
 if (missing.length) { console.error("missing from the build:", missing.join(", ")); process.exit(1); }
-console.log("dist provides", found.join(", "), "and dist/index.js");'
+console.log("dist provides", found.join(", "));'
 }
 
 typecheck() {

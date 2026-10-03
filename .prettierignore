@@ -2,3 +2,5 @@
 **/node_modules
 **/dist
 **/build
+# Agent runtime files written into the working tree (not part of the project)
+.claude/
