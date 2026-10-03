@@ -16,3 +16,5 @@ Thumbs.db
 *.tsbuildinfo
 # AIDEV suite output (.aidev/run-checks.sh)
 test-results/
+# AIDEV directory leases, written into the working tree while slots run (ai/aidev#14645)
+.aidev-dir-lease/
