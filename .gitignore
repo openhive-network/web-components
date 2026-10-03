@@ -14,3 +14,5 @@ Thumbs.db
 *.tar.gz
 .pnpm-debug.log*
 *.tsbuildinfo
+# AIDEV suite output (.aidev/run-checks.sh)
+test-results/

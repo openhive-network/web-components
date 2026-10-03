@@ -42,6 +42,16 @@ web-components/
 └── .gitlab-ci.yml             # CI/CD configuration
 ```
 
+## Working in an AIDEV workflow
+
+When AIDEV runs you on an issue, no one is there to answer questions. GitLab CI doesn't run for AIDEV branches; the checks below are the verification.
+
+- **Check your change:** run `aidev test run --slot quick` once, after your last edit. It runs ESLint (`lint:ci`, `--max-warnings 0`), Prettier (`format:ci`), `pnpm build` (every package plus the root bundle; it checks that each package's `exports`/`types` files exist in `dist/`) and `tsc --noEmit` per package.
+- **Iterate:** `.aidev/run-checks.sh dev lint` (or `format` / `build` / `typecheck`) runs one step. Run `pnpm format` before committing: the Prettier check covers every file, Markdown included.
+- **No tests yet:** vitest is a devDependency but there are no test files. If you add tests, add a `test` step to `.aidev/run-checks.sh` that writes junit, and bind it into `quick`/`full`.
+- **Network:** the suites run with `--network none`. Don't add a check that calls the Hive API.
+- **Dependencies:** a change to `pnpm-lock.yaml`, `pnpm-workspace.yaml` or `packageManager` needs a new test image. Run `.aidev/runtime/build.sh --push` and put the printed reference in `.aidev/project.yaml` `environment.image` in the same commit (see `.aidev/README.md`).
+
 ## Development Commands
 
 ```bash
@@ -69,6 +79,7 @@ pnpm clean
 ## Key Files
 
 **Configuration:**
+
 - `tsconfig.json` - TypeScript: ES2022, strict mode, experimental decorators
 - `eslint.config.mjs` - ESLint rules with TypeScript plugin
 - `.prettierrc` - Formatting: double quotes, 120 width, es5 trailing commas
@@ -76,11 +87,13 @@ pnpm clean
 - `.lintstagedrc` - Pre-commit lint configuration
 
 **Entry Points:**
+
 - `all.ts` - Root bundle exporting all components
 - `packages/internal/src/index.ts` - Shared utilities exports
 - `packages/component-*/src/index.ts` - Individual component exports
 
 **API:**
+
 - `packages/internal/src/hive-api.ts` - HiveApiClient with failover endpoints
 - `packages/internal/src/types.ts` - TypeScript interfaces (HivePost, HiveWitness, etc.)
 
@@ -97,7 +110,13 @@ import { withHiveTheme, baseStyles, themeStyles } from "@hiveio/component-intern
 
 @customElement("hive-example")
 export class HiveExample extends withHiveTheme(LitElement) {
-  static styles = [baseStyles, themeStyles, css`/* component styles */`];
+  static styles = [
+    baseStyles,
+    themeStyles,
+    css`
+      /* component styles */
+    `,
+  ];
 
   @property({ type: String }) account = "";
   @state() private _loading = false;
@@ -140,20 +159,24 @@ Components support `light`, `dark`, and `auto` theme modes via the `theme` attri
 **GitLab CI** (`.gitlab-ci.yml`):
 
 **Stages:**
+
 1. `.pre` - Lint (ESLint + Prettier checks)
 2. `build` - Build packages, generate version info, create artifacts
 3. `deploy` - Publish to GitLab npm registry or npmjs.org
 
 **Pipeline Behavior:**
+
 - Auto-starts on push (do not run `glab ci run` after push)
 - Develop and master branches are protected
 - All jobs must pass before merge
 
 **Artifacts:**
+
 - Built packages in `dist/`
 - Modified package.json with version info
 
 **Publishing:**
+
 - Dev packages → GitLab npm registry
 - Production → npmjs.org (public access)
 
@@ -175,13 +198,13 @@ Each component package follows this pattern:
 
 ## Available Components
 
-| Component | Description |
-|-----------|-------------|
-| `hive-post` | Full post display (header, content, footer) |
-| `hive-post-header` | Author info, avatar, reputation, title |
-| `hive-post-content` | Post body with preview mode |
-| `hive-post-footer` | Voting stats, comments, payout, tags |
-| `hive-comments` | Threaded comments with configurable depth |
-| `hive-witness` | Witness info, votes, missed blocks |
-| `hive-account` | Account information display |
-| `hive-tag` | Tag posts listing with pagination |
+| Component           | Description                                 |
+| ------------------- | ------------------------------------------- |
+| `hive-post`         | Full post display (header, content, footer) |
+| `hive-post-header`  | Author info, avatar, reputation, title      |
+| `hive-post-content` | Post body with preview mode                 |
+| `hive-post-footer`  | Voting stats, comments, payout, tags        |
+| `hive-comments`     | Threaded comments with configurable depth   |
+| `hive-witness`      | Witness info, votes, missed blocks          |
+| `hive-account`      | Account information display                 |
+| `hive-tag`          | Tag posts listing with pagination           |

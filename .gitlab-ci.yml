@@ -8,6 +8,21 @@ variables:
   GIT_STRATEGY: clone
   GIT_SUBMODULE_STRATEGY: recursive
 
+# Branch pipelines (what the Workflows/Branch-Pipelines template did), except for
+# AIDEV-driven development: ai/<issue>-..., session/<name> and aidev/integration
+# are verified by the suites in .aidev/project.yaml, not by CI. A push to
+# aidev/integration runs no pipeline; one started by hand or through the API does
+# (`glab ci run -b aidev/integration`), which is how its MR into develop gets the
+# pipeline develop's merge rule requires.
+workflow:
+  rules:
+    - if: $CI_COMMIT_BRANCH =~ /^(ai|session)\//
+      when: never
+    - if: $CI_COMMIT_BRANCH == "aidev/integration" && $CI_PIPELINE_SOURCE !~ /^(web|api)$/
+      when: never
+    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_BRANCH
+
 include:
   - project: "hive/common-ci-configuration"
     ref: ab4d4c78df8ebc5b5d7744fe2cfa64c51143fe01
