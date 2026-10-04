@@ -31,9 +31,10 @@ and a `test` step that writes junit is the first thing to bind into `quick`/`ful
 
 ## The test runtime image (`runtime/`)
 
-The suites run in a container with `--network none` and your uid. The image carries Node 20.18.3 (what CI's emsdk image
-`4.0.1-3` carried), pnpm (from package.json `packageManager`, through corepack) and a pnpm store filled with `pnpm fetch`.
-`pnpm-deps.sh` installs `node_modules` offline from it.
+The suites run in a container with `--network none` and your uid. The image is built on CI's emsdk image `5.0.2-4` (the
+one `.gitlab-ci.yml`'s common-ci-configuration ref names) and carries its Node 24.21.0, pnpm (from package.json
+`packageManager`, through corepack) and a pnpm store filled with `pnpm fetch`. `pnpm-deps.sh` installs `node_modules`
+offline from it.
 
 When `pnpm-lock.yaml`, `pnpm-workspace.yaml`, `packageManager` or `runtime/Dockerfile` change, rebuild and re-pin **in
 the same commit**:
