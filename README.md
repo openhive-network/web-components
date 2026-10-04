@@ -203,7 +203,7 @@ hive-witness {
 
 ### Prerequisites
 
-- Node.js >= 20
+- Node.js >= 24
 - pnpm 9.0.0
 
 ### Setup
