@@ -14,7 +14,7 @@ Hive Components is a reusable Web Components library for the Hive blockchain. It
 - **Lit 3.0** - Lightweight web components framework
 - **pnpm 10.13** - Monorepo workspace management
 - **Vite 5.0** - Build and dev server
-- **Node.js >= 20** - Runtime requirement
+- **Node.js >= 24** - Runtime requirement
 - **ESLint 9.28** - Linting with TypeScript plugin
 - **Prettier 3.0** - Code formatting (print width 120)
 - **Vitest 1.0** - Testing framework
