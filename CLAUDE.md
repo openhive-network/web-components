@@ -12,7 +12,7 @@ Hive Components is a reusable Web Components library for the Hive blockchain. It
 
 - **TypeScript 5.0** - Strict mode with full type safety
 - **Lit 3.0** - Lightweight web components framework
-- **pnpm 10.13** - Monorepo workspace management
+- **pnpm** - Monorepo workspace management (version from ccc's CI images)
 - **Vite 5.0** - Build and dev server
 - **Node.js >= 24** - Runtime requirement
 - **ESLint 9.28** - Linting with TypeScript plugin
@@ -50,7 +50,7 @@ When AIDEV runs you on an issue, no one is there to answer questions. GitLab CI 
 - **Iterate:** `.aidev/run-checks.sh dev lint` (or `format` / `build` / `typecheck`) runs one step. Run `pnpm format` before committing: the Prettier check covers every file, Markdown included.
 - **No tests yet:** vitest is a devDependency but there are no test files. If you add tests, add a `test` step to `.aidev/run-checks.sh` that writes junit, and bind it into `quick`/`full`.
 - **Network:** the suites run with `--network none`. Don't add a check that calls the Hive API.
-- **Dependencies:** a change to `pnpm-lock.yaml`, `pnpm-workspace.yaml` or `packageManager` needs a new test image. Run `.aidev/runtime/build.sh --push` and put the printed reference in `.aidev/project.yaml` `environment.image` in the same commit (see `.aidev/README.md`).
+- **Dependencies:** a change to `pnpm-lock.yaml`, `pnpm-workspace.yaml` or `.aidev/runtime/Dockerfile` needs a new test image. Run `.aidev/runtime/build.sh --push` and put the printed reference in `.aidev/project.yaml` `environment.image` in the same commit (see `.aidev/README.md`).
 
 ## Development Commands
 

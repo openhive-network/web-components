@@ -4,7 +4,7 @@
 # `environment.image`. See .aidev/README.md.
 #
 # The tag is `aidev-<hash>`, the hash of the image inputs (the Dockerfile,
-# `packageManager` from package.json, pnpm-lock.yaml, pnpm-workspace.yaml); the
+# pnpm-lock.yaml, pnpm-workspace.yaml); the
 # registry cleanup policy keeps `aidev-*` tags. When
 # <repository>:aidev-<hash> is already in the registry nothing is built: the script
 # prints that image's digest.
@@ -18,14 +18,10 @@ cd "$(dirname "$0")/../.."
 
 REPOSITORY="${AIDEV_RUNTIME_REPOSITORY:-registry.gitlab.syncad.com/hive/web-components/aidev-tests}"
 
-# `pnpm fetch` reads only the lockfile and the workspace file; of
-# package.json the image uses `packageManager` alone (corepack), so its other
-# fields (scripts, versions) don't make a new image.
+# `pnpm fetch` reads only the lockfile and the workspace file, so package.json
+# (scripts, versions) doesn't make a new image.
 input_hash() {
-    {
-        sha256sum .aidev/runtime/Dockerfile pnpm-lock.yaml pnpm-workspace.yaml
-        grep '"packageManager"' package.json
-    } | sha256sum | cut -c1-16
+    sha256sum .aidev/runtime/Dockerfile pnpm-lock.yaml pnpm-workspace.yaml | sha256sum | cut -c1-16
 }
 TAG="aidev-$(input_hash)"
 
