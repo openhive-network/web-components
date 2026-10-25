@@ -25,7 +25,7 @@ workflow:
 
 include:
   - project: "hive/common-ci-configuration"
-    ref: 7dffa23eb3612b0e2f049e98260028c0134c0156
+    ref: develop
     file:
       - "/templates/npm_projects.gitlab-ci.yml"
 
