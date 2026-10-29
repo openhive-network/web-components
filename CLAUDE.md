@@ -10,7 +10,7 @@ Hive Components is a reusable Web Components library for the Hive blockchain. It
 
 ## Tech Stack
 
-- **TypeScript 5.0** - Strict mode with full type safety
+- **TypeScript 6.0** - Strict mode with full type safety (version from ccc's `typescript-toolset` catalog)
 - **Lit 3.0** - Lightweight web components framework
 - **pnpm** - Monorepo workspace management (version from ccc's CI images)
 - **Vite 5.0** - Build and dev server
@@ -33,6 +33,7 @@ web-components/
 │   └── component-tag/          # Tag posts listing
 ├── catalog/                    # Dev catalog for component testing
 ├── example/                    # Example implementation
+├── npm-common-config/          # ccc submodule (hive/common-ci-configuration, develop): shared pnpm catalogs
 ├── all.ts                      # Root bundle entry point
 ├── vite.config.ts             # Root Vite config
 ├── vite.config.common.ts      # Shared Vite utilities
@@ -83,7 +84,10 @@ pnpm clean
 - `tsconfig.json` - TypeScript: ES2022, strict mode, experimental decorators
 - `eslint.config.mjs` - ESLint rules with TypeScript plugin
 - `.prettierrc` - Formatting: double quotes, 120 width, es5 trailing commas
-- `pnpm-workspace.yaml` - Workspace packages definition
+- `pnpm-workspace.yaml` - Workspace packages definition, plus ccc's catalogs and overrides merged in by
+  `python3 npm-common-config/scripts/python/pnpm-catalog-sync.py` (don't edit the `BEGIN`/`END common-ci-configuration`
+  regions; CI's `pnpm_catalog_check` job reports when they are behind the submodule). A dependency a ccc catalog covers
+  is referenced as `catalog:<name>` in every package.json, never with a version of its own.
 - `.lintstagedrc` - Pre-commit lint configuration
 
 **Entry Points:**
