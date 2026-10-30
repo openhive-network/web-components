@@ -30,10 +30,20 @@ branches:
   handoff_history: "linear"
 
 # How this project's suites execute (#13892): one kind, stated once.
+# `shared` (aidev docs/operations/shared-test-images.md): ccc's node-test-tools at
+# the moving `develop` tag, which aidev pins to one digest per workflow, with a
+# host pnpm store filled by `fetch` and mounted read-only at `store`. `fallback`
+# is the image .aidev/runtime/ builds, its store at the same path; see
+# .aidev/README.md.
 environment:
-  kind: "container"
-  image: "registry.gitlab.syncad.com/hive/web-components/aidev-tests@sha256:8211c42604e89f0e0be63ee8e0633990c95899f2185718e6a546d1910a750251"
-  inputs: ["pnpm-lock.yaml"]
+  kind: shared
+  image: registry.gitlab.syncad.com/hive/common-ci-configuration/node-test-tools:develop
+  packages:
+    lock: pnpm-lock.yaml
+    store: /opt/pnpm-store
+    fetch: [pnpm, fetch, --frozen-lockfile, --store-dir, /opt/pnpm-store]
+    install: [pnpm, install, --offline, --frozen-lockfile, --store-dir, /opt/pnpm-store]
+  fallback: registry.gitlab.syncad.com/hive/web-components/aidev-tests@sha256:8211c42604e89f0e0be63ee8e0633990c95899f2185718e6a546d1910a750251
 
 issues:
   intake_label: todo
